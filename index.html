@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Animasi Interaktif Hukum Kirchhoff</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Animasi Interaktif Hukum Kirchhoff</h1>
+    <p><b>KCL</b>: Arus masuk = arus keluar pada simpul</p>
+    <p><b>KVL</b>: Jumlah tegangan loop = 0</p>
+
+    <div class="circuit">
+      <!-- Node tengah -->
+      <div class="node" style="top: 130px; left: 240px"></div>
+      <div class="node-label" style="top: 150px; left: 230px">Node A</div>
+
+      <!-- Resistor kiri -->
+      <div class="resistor" style="top: 50px; left: 100px"></div>
+      <div class="node-label" id="labelR1" style="top: 30px; left: 105px">
+        R1=4Ω
+      </div>
+
+      <!-- Resistor kanan -->
+      <div class="resistor" style="top: 50px; left: 300px"></div>
+      <div class="node-label" id="labelR2" style="top: 30px; left: 310px">
+        R2=6Ω
+      </div>
+
+      <!-- Baterai -->
+      <div class="battery" style="top: 200px; left: 230px"></div>
+      <div class="node-label" id="labelV" style="top: 275px; left: 215px">
+        V=12V
+      </div>
+
+      <!-- Arus (panah bergerak) -->
+      <div class="arrow"></div>
+
+      <!-- Loop tegangan -->
+      <div class="loop"></div>
+    </div>
+
+    <div class="explain" id="info">Menjelaskan KCL...</div>
+
+    <!-- Form input -->
+    <div class="form-input">
+      <label>
+        Jenis Rangkaian:
+        <select id="jenis">
+          <option value="seri">Seri</option>
+          <option value="paralel">Paralel</option>
+        </select> </label
+      ><br />
+      <label
+        >Tegangan (V): <input type="number" id="inputV" value="12"
+      /></label>
+      <label>R1 (Ω): <input type="number" id="inputR1" value="4" /></label>
+      <label>R2 (Ω): <input type="number" id="inputR2" value="6" /></label>
+      <button onclick="hitung()">Hitung</button>
+    </div>
+
+    <!-- Kalkulasi otomatis -->
+    <div class="calc">
+      <h2>Perhitungan</h2>
+      <div id="calc"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
