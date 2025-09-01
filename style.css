@@ -4,9 +4,7 @@ body {
   text-align: center;
   padding: 20px;
 }
-h1 {
-  margin-bottom: 10px;
-}
+h1 { margin-bottom: 10px; }
 .circuit {
   position: relative;
   margin: 20px auto;
@@ -16,6 +14,7 @@ h1 {
   background: #fff;
   border-radius: 8px;
 }
+
 /* Node */
 .node {
   position: absolute;
@@ -30,6 +29,7 @@ h1 {
   font-weight: bold;
   color: #333;
 }
+
 /* Resistor */
 .resistor {
   position: absolute;
@@ -39,6 +39,7 @@ h1 {
   border: 2px solid #555;
   border-radius: 5px;
 }
+
 /* Baterai */
 .battery {
   position: absolute;
@@ -56,6 +57,21 @@ h1 {
   height: 10px;
   background: #000;
 }
+
+/* Kabel */
+.wire {
+  position: absolute;
+  background: black;
+}
+#wire-seri-top { top: 55px; left: 160px; width: 140px; height: 4px; }
+#wire-seri-mid { top: 125px; left: 240px; width: 4px; height: 75px; }
+#wire-seri-bottom { top: 200px; left: 160px; width: 140px; height: 4px; }
+
+#wire-par-top { top: 55px; left: 160px; width: 200px; height: 4px; }
+#wire-par-left { top: 55px; left: 160px; width: 4px; height: 145px; }
+#wire-par-right { top: 55px; left: 360px; width: 4px; height: 145px; }
+#wire-par-bottom { top: 200px; left: 160px; width: 200px; height: 4px; }
+
 /* Panah arus */
 .arrow {
   position: absolute;
@@ -64,16 +80,39 @@ h1 {
   border: solid red;
   border-width: 0 3px 3px 0;
   display: inline-block;
-  transform: rotate(90deg);
-  animation: moveArrow 3s linear infinite;
 }
-@keyframes moveArrow {
+#arrowSeri {
+  transform: rotate(90deg);
+  animation: moveSeri 3s linear infinite;
+}
+#arrowR1 {
+  top: 80px; left: 180px;
+  transform: rotate(90deg);
+  animation: moveR1 2s linear infinite;
+}
+#arrowR2 {
+  top: 80px; left: 320px;
+  transform: rotate(90deg);
+  animation: moveR2 2s linear infinite;
+}
+@keyframes moveSeri {
   0% { top: 60px; left: 120px; opacity: 0; }
   25% { top: 120px; left: 120px; opacity: 1; }
   50% { top: 180px; left: 120px; opacity: 1; }
   75% { top: 240px; left: 120px; opacity: 1; }
   100% { top: 280px; left: 120px; opacity: 0; }
 }
+@keyframes moveR1 {
+  0% { top: 60px; opacity: 0; }
+  50% { top: 120px; opacity: 1; }
+  100% { top: 200px; opacity: 0; }
+}
+@keyframes moveR2 {
+  0% { top: 60px; opacity: 0; }
+  50% { top: 120px; opacity: 1; }
+  100% { top: 200px; opacity: 0; }
+}
+
 /* Loop tegangan */
 .loop {
   position: absolute;
@@ -86,9 +125,10 @@ h1 {
   animation: blink 2s linear infinite;
 }
 @keyframes blink {
-  0%, 100% { opacity: 1; }
+  0%,100% { opacity: 1; }
   50% { opacity: 0.3; }
 }
+
 /* Info teks */
 .explain {
   margin-top: 15px;
@@ -105,17 +145,13 @@ h1 {
   padding: 15px;
   text-align: left;
 }
-.calc h2 {
-  margin-top: 0;
-}
 .form-input {
   margin-top: 15px;
   background: #eef3f9;
   padding: 10px;
   border-radius: 8px;
 }
-input,
-select {
+input, select {
   padding: 5px;
   margin: 5px;
   text-align: center;
@@ -129,6 +165,4 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
-button:hover {
-  background: #005fcc;
-}
+button:hover { background: #005fcc; }
