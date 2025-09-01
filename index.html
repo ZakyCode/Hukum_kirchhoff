@@ -11,9 +11,20 @@
     <p><b>KVL</b>: Jumlah tegangan loop = 0</p>
 
     <div class="circuit">
-      <!-- Node tengah -->
+      <!-- Node -->
       <div class="node" style="top: 130px; left: 240px"></div>
       <div class="node-label" style="top: 150px; left: 230px">Node A</div>
+
+      <!-- Kabel seri -->
+      <div class="wire" id="wire-seri-top"></div>
+      <div class="wire" id="wire-seri-mid"></div>
+      <div class="wire" id="wire-seri-bottom"></div>
+
+      <!-- Kabel paralel -->
+      <div class="wire" id="wire-par-top"></div>
+      <div class="wire" id="wire-par-left"></div>
+      <div class="wire" id="wire-par-right"></div>
+      <div class="wire" id="wire-par-bottom"></div>
 
       <!-- Resistor kiri -->
       <div class="resistor" style="top: 50px; left: 100px"></div>
@@ -33,8 +44,10 @@
         V=12V
       </div>
 
-      <!-- Arus (panah bergerak) -->
-      <div class="arrow"></div>
+      <!-- Panah arus -->
+      <div class="arrow" id="arrowSeri"></div>
+      <div class="arrow branch" id="arrowR1"></div>
+      <div class="arrow branch" id="arrowR2"></div>
 
       <!-- Loop tegangan -->
       <div class="loop"></div>
@@ -42,11 +55,11 @@
 
     <div class="explain" id="info">Menjelaskan KCL...</div>
 
-    <!-- Form input -->
+    <!-- Input -->
     <div class="form-input">
-      <label>
-        Jenis Rangkaian:
-        <select id="jenis">
+      <label
+        >Jenis Rangkaian:
+        <select id="jenis" onchange="ubahAnimasi()">
           <option value="seri">Seri</option>
           <option value="paralel">Paralel</option>
         </select> </label
@@ -59,7 +72,7 @@
       <button onclick="hitung()">Hitung</button>
     </div>
 
-    <!-- Kalkulasi otomatis -->
+    <!-- Kalkulasi -->
     <div class="calc">
       <h2>Perhitungan</h2>
       <div id="calc"></div>
