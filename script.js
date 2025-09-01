@@ -49,8 +49,45 @@ function hitung() {
   calc.innerHTML = hasil;
 }
 
+function ubahAnimasi() {
+  let jenis = document.getElementById("jenis").value;
+
+  let seriWires = [
+    document.getElementById("wire-seri-top"),
+    document.getElementById("wire-seri-mid"),
+    document.getElementById("wire-seri-bottom")
+  ];
+  let parWires = [
+    document.getElementById("wire-par-top"),
+    document.getElementById("wire-par-left"),
+    document.getElementById("wire-par-right"),
+    document.getElementById("wire-par-bottom")
+  ];
+
+  let arrowSeri = document.getElementById("arrowSeri");
+  let arrowR1 = document.getElementById("arrowR1");
+  let arrowR2 = document.getElementById("arrowR2");
+
+  if (jenis === "seri") {
+    arrowSeri.style.display = "block";
+    arrowR1.style.display = "none";
+    arrowR2.style.display = "none";
+    seriWires.forEach(w => w.style.display = "block");
+    parWires.forEach(w => w.style.display = "none");
+  } else {
+    arrowSeri.style.display = "none";
+    arrowR1.style.display = "block";
+    arrowR2.style.display = "block";
+    seriWires.forEach(w => w.style.display = "none");
+    parWires.forEach(w => w.style.display = "block");
+  }
+
+  hitung();
+}
+
 // perhitungan awal
 hitung();
+ubahAnimasi();
 
 // teks bergantian
 setInterval(() => {
