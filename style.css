@@ -1,168 +1,155 @@
 body {
   font-family: Arial, sans-serif;
-  background: #f4f7fb;
   text-align: center;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin: 20px 0;
+  font-size: 2rem;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
   padding: 20px;
 }
-h1 { margin-bottom: 10px; }
+
+/* Kartu rangkaian */
 .circuit {
-  position: relative;
-  margin: 20px auto;
-  width: 500px;
-  height: 300px;
-  border: 2px solid #444;
-  background: #fff;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  padding: 20px;
+  min-width: 280px;
+  flex: 1 1 400px;
+  max-width: 600px;
+}
+
+.circuit h2 {
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+/* Input */
+.circuit label {
+  display: block;
+  margin: 8px 0;
+  font-size: 0.95rem;
+}
+
+.circuit input {
+  padding: 6px 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-left: 8px;
+  width: 100px;
+}
+
+button {
+  margin-top: 12px;
+  padding: 10px 18px;
+  border: none;
   border-radius: 8px;
+  background: #0077ff;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-/* Node */
-.node {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #222;
-}
-.node-label {
-  position: absolute;
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
+button:hover {
+  background: #005fcc;
 }
 
-/* Resistor */
-.resistor {
-  position: absolute;
-  width: 60px;
-  height: 10px;
-  background: #ccc;
-  border: 2px solid #555;
-  border-radius: 5px;
+
+
+/* Lampu & baterai */
+.lamp {
+  font-size: 2rem;
+  transition: 0.3s;
+  opacity: 0.4;
 }
 
-/* Baterai */
+.lamp.on {
+  color: gold;
+  opacity: 1;
+  text-shadow: 0 0 15px gold;
+}
+
 .battery {
-  position: absolute;
-  width: 30px;
-  height: 70px;
-  border: 2px solid #000;
-  background: linear-gradient(to bottom, #eee, #bbb);
-}
-.battery::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 10px;
-  width: 10px;
-  height: 10px;
-  background: #000;
+  font-size: 2rem;
+  margin: 5px;
 }
 
 /* Kabel */
 .wire {
-  position: absolute;
   background: black;
 }
-#wire-seri-top { top: 55px; left: 160px; width: 140px; height: 4px; }
-#wire-seri-mid { top: 125px; left: 240px; width: 4px; height: 75px; }
-#wire-seri-bottom { top: 200px; left: 160px; width: 140px; height: 4px; }
 
-#wire-par-top { top: 55px; left: 160px; width: 200px; height: 4px; }
-#wire-par-left { top: 55px; left: 160px; width: 4px; height: 145px; }
-#wire-par-right { top: 55px; left: 360px; width: 4px; height: 145px; }
-#wire-par-bottom { top: 200px; left: 160px; width: 200px; height: 4px; }
-
-/* Panah arus */
-.arrow {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border: solid red;
-  border-width: 0 3px 3px 0;
+.wire.horizontal {
   display: inline-block;
-}
-#arrowSeri {
-  transform: rotate(90deg);
-  animation: moveSeri 3s linear infinite;
-}
-#arrowR1 {
-  top: 80px; left: 180px;
-  transform: rotate(90deg);
-  animation: moveR1 2s linear infinite;
-}
-#arrowR2 {
-  top: 80px; left: 320px;
-  transform: rotate(90deg);
-  animation: moveR2 2s linear infinite;
-}
-@keyframes moveSeri {
-  0% { top: 60px; left: 120px; opacity: 0; }
-  25% { top: 120px; left: 120px; opacity: 1; }
-  50% { top: 180px; left: 120px; opacity: 1; }
-  75% { top: 240px; left: 120px; opacity: 1; }
-  100% { top: 280px; left: 120px; opacity: 0; }
-}
-@keyframes moveR1 {
-  0% { top: 60px; opacity: 0; }
-  50% { top: 120px; opacity: 1; }
-  100% { top: 200px; opacity: 0; }
-}
-@keyframes moveR2 {
-  0% { top: 60px; opacity: 0; }
-  50% { top: 120px; opacity: 1; }
-  100% { top: 200px; opacity: 0; }
+  width: 40px;
+  height: 4px;
+  vertical-align: middle;
 }
 
-/* Loop tegangan */
-.loop {
-  position: absolute;
-  width: 420px;
-  height: 240px;
-  border: 2px dashed blue;
-  border-radius: 20px;
-  top: 30px;
-  left: 30px;
-  animation: blink 2s linear infinite;
-}
-@keyframes blink {
-  0%,100% { opacity: 1; }
-  50% { opacity: 0.3; }
+/* Arus */
+.current {
+  position: relative;
+  display: inline-block;
+  font-size: 1.2rem;
+  opacity: 0;
 }
 
-/* Info teks */
-.explain {
+.current.active {
+  opacity: 1;
+  animation: moveCurrent 2s linear infinite;
+}
+
+/* Animasi arus */
+@keyframes moveCurrent {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(40px); }
+}
+
+/* Output */
+.output {
   margin-top: 15px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #222;
-}
-.calc {
-  margin-top: 20px;
-  background: #fff;
-  border: 2px solid #333;
-  border-radius: 8px;
-  display: inline-block;
-  padding: 15px;
   text-align: left;
-}
-.form-input {
-  margin-top: 15px;
-  background: #eef3f9;
+  font-size: 0.95rem;
+  background: #f9f9f9;
   padding: 10px;
   border-radius: 8px;
+  border: 1px solid #ddd;
 }
-input, select {
-  padding: 5px;
-  margin: 5px;
-  text-align: center;
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  h1 { font-size: 1.8rem; }
+  .circuit { flex: 1 1 45%; }
 }
-button {
-  margin-top: 10px;
-  padding: 8px 15px;
-  border: none;
-  background: #0077ff;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
+
+@media (max-width: 768px) {
+  .container { flex-direction: column; align-items: center; }
+  .circuit { width: 95%; }
+  h1 { font-size: 1.6rem; }
+  .circuit input { width: 80px; font-size: 0.9rem; }
+  button { font-size: 0.9rem; padding: 8px 14px; }
 }
-button:hover { background: #005fcc; }
+
+@media (max-width: 480px) {
+  h1 { font-size: 1.3rem; }
+  .circuit { padding: 15px; }
+  .circuit h2 { font-size: 1.1rem; }
+  .lamp { font-size: 1.6rem; }
+  .battery { font-size: 1.6rem; }
+  .wire.horizontal { width: 25px; }
+  .circuit input { width: 70px; font-size: 0.85rem; }
+  button { font-size: 0.85rem; padding: 7px 12px; }
+}
