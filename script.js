@@ -1,101 +1,48 @@
-let info = document.getElementById("info");
-let calc = document.getElementById("calc");
-let labelR1 = document.getElementById("labelR1");
-let labelR2 = document.getElementById("labelR2");
-let labelV = document.getElementById("labelV");
-let state = 0;
+function hitungSeri() {
+  let R1 = parseFloat(document.getElementById("seriR1").value);
+  let R2 = parseFloat(document.getElementById("seriR2").value);
+  let V = parseFloat(document.getElementById("seriV").value);
 
-function hitung() {
-  let jenis = document.getElementById("jenis").value;
-  let V = parseFloat(document.getElementById("inputV").value);
-  let R1 = parseFloat(document.getElementById("inputR1").value);
-  let R2 = parseFloat(document.getElementById("inputR2").value);
+  let Rtotal = R1 + R2;
+  let I = V / Rtotal;
 
-  // update label
-  labelR1.innerHTML = `R1=${R1}Ω`;
-  labelR2.innerHTML = `R2=${R2}Ω`;
-  labelV.innerHTML = `V=${V}V`;
+  document.getElementById("seriOutput").innerHTML =
+    `<b>Hukum Kirchhoff (Seri):</b><br>
+    Rtotal = R1 + R2 = ${R1} + ${R2} = <b>${Rtotal.toFixed(2)} Ω</b><br>
+    I = V / Rtotal = ${V} / ${Rtotal.toFixed(2)} = <b>${I.toFixed(2)} A</b>`;
 
-  let Rtotal, I, V1, V2, I1, I2, hasil = "";
+  // Lampu menyala
+  document.getElementById("seriLamp1").classList.add("on");
+  document.getElementById("seriLamp2").classList.add("on");
 
-  if (jenis === "seri") {
-    Rtotal = R1 + R2;
-    I = V / Rtotal;
-    V1 = I * R1;
-    V2 = I * R2;
-    hasil = `
-      ⚡ <b>Rangkaian Seri</b><br>
-      R_total = R1 + R2 = ${R1} + ${R2} = <b>${Rtotal.toFixed(2)} Ω</b><br>
-      I_total = V / R_total = ${V} / ${Rtotal.toFixed(2)} = <b>${I.toFixed(2)} A</b><br><br>
-      Tegangan R1 = I × R1 = ${I.toFixed(2)} × ${R1} = <b>${V1.toFixed(2)} V</b><br>
-      Tegangan R2 = I × R2 = ${I.toFixed(2)} × ${R2} = <b>${V2.toFixed(2)} V</b><br><br>
-      🔵 KVL Check: ${V1.toFixed(2)} + ${V2.toFixed(2)} = <b>${(V1+V2).toFixed(2)} V</b> = ${V} V ✅
-    `;
-  } else {
-    Rtotal = (R1 * R2) / (R1 + R2);
-    I = V / Rtotal;
-    I1 = V / R1;
-    I2 = V / R2;
-    hasil = `
-      ⚡ <b>Rangkaian Paralel</b><br>
-      1/R_total = 1/R1 + 1/R2 → R_total = <b>${Rtotal.toFixed(2)} Ω</b><br>
-      I_total = V / R_total = ${V} / ${Rtotal.toFixed(2)} = <b>${I.toFixed(2)} A</b><br><br>
-      Arus R1 = V / R1 = ${V} / ${R1} = <b>${I1.toFixed(2)} A</b><br>
-      Arus R2 = V / R2 = ${V} / ${R2} = <b>${I2.toFixed(2)} A</b><br><br>
-      🔴 KCL Check: ${I1.toFixed(2)} + ${I2.toFixed(2)} = <b>${(I1+I2).toFixed(2)} A</b> = ${I.toFixed(2)} A ✅
-    `;
-  }
-
-  calc.innerHTML = hasil;
+  // Arus aktif
+  document.getElementById("seriCurrent").classList.add("active");
 }
 
-function ubahAnimasi() {
-  let jenis = document.getElementById("jenis").value;
+function hitungParalel() {
+  let R1 = parseFloat(document.getElementById("paralelR1").value);
+  let R2 = parseFloat(document.getElementById("paralelR2").value);
+  let V = parseFloat(document.getElementById("paralelV").value);
 
-  let seriWires = [
-    document.getElementById("wire-seri-top"),
-    document.getElementById("wire-seri-mid"),
-    document.getElementById("wire-seri-bottom")
-  ];
-  let parWires = [
-    document.getElementById("wire-par-top"),
-    document.getElementById("wire-par-left"),
-    document.getElementById("wire-par-right"),
-    document.getElementById("wire-par-bottom")
-  ];
+  let Rtotal = 1 / (1/R1 + 1/R2);
+  let I = V / Rtotal;
+  let I1 = V / R1;
+  let I2 = V / R2;
 
-  let arrowSeri = document.getElementById("arrowSeri");
-  let arrowR1 = document.getElementById("arrowR1");
-  let arrowR2 = document.getElementById("arrowR2");
+  document.getElementById("paralelOutput").innerHTML =
+    `<b>Hukum Kirchhoff (Paralel):</b><br>
+    1/Rt = 1/R1 + 1/R2 = 1/${R1} + 1/${R2}<br>
+    Rtotal = <b>${Rtotal.toFixed(2)} Ω</b><br>
+    I = V / Rt = ${V} / ${Rtotal.toFixed(2)} = <b>${I.toFixed(2)} A</b><br>
+    I1 = ${V} / ${R1} = ${I1.toFixed(2)} A<br>
+    I2 = ${V} / ${R2} = ${I2.toFixed(2)} A<br>
+    (Hukum Kirchhoff: I = I1 + I2 → ${I.toFixed(2)} ≈ ${ (I1+I2).toFixed(2)} )`;
 
-  if (jenis === "seri") {
-    arrowSeri.style.display = "block";
-    arrowR1.style.display = "none";
-    arrowR2.style.display = "none";
-    seriWires.forEach(w => w.style.display = "block");
-    parWires.forEach(w => w.style.display = "none");
-  } else {
-    arrowSeri.style.display = "none";
-    arrowR1.style.display = "block";
-    arrowR2.style.display = "block";
-    seriWires.forEach(w => w.style.display = "none");
-    parWires.forEach(w => w.style.display = "block");
-  }
+  // Lampu menyala
+  document.getElementById("paralelLamp1").classList.add("on");
+  document.getElementById("paralelLamp2").classList.add("on");
 
-  hitung();
+  // Arus aktif
+  document.getElementById("paralelCurrent1").classList.add("active");
+  document.getElementById("paralelCurrent2").classList.add("active");
 }
-
-// perhitungan awal
-hitung();
-ubahAnimasi();
-
-// teks bergantian
-setInterval(() => {
-  if (state === 0) {
-    info.innerHTML = "🔴 KCL: Arus masuk node = Arus keluar node";
-    state = 1;
-  } else {
-    info.innerHTML = "🔵 KVL: Jumlah tegangan dalam loop = 0";
-    state = 0;
-  }
-}, 4000);
