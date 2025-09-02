@@ -2,80 +2,98 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <title>Animasi Interaktif Hukum Kirchhoff</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulasi Rangkaian Seri & Paralel</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Animasi Interaktif Hukum Kirchhoff</h1>
-    <p><b>KCL</b>: Arus masuk = arus keluar pada simpul</p>
-    <p><b>KVL</b>: Jumlah tegangan loop = 0</p>
+    <h1>Simulasi Rangkaian Seri & Paralel</h1>
+    <h1>Dalam Hukum Kirchhoff</h1>
+    <div class="container">
+      <!-- Rangkaian Seri -->
+      <div class="circuit">
+        <h2>Rangkaian Seri</h2>
+        <label>R1 (Ω): <input type="number" id="seriR1" value="4" /></label>
+        <label>R2 (Ω): <input type="number" id="seriR2" value="6" /></label>
+        <label>V (Volt): <input type="number" id="seriV" value="12" /></label>
+        <button onclick="hitungSeri()">Hitung</button>
 
-    <div class="circuit">
-      <!-- Node -->
-      <div class="node" style="top: 130px; left: 240px"></div>
-      <div class="node-label" style="top: 150px; left: 230px">Node A</div>
+        <div class="diagram">
+          <span class="battery">🔋</span>
+          <span class="wire horizontal"></span>
+          <span class="lamp" id="seriLamp1">💡</span>
+          <span class="wire horizontal"></span>
+          <span class="lamp" id="seriLamp2">💡</span>
+          <span class="wire horizontal"></span>
+          <span class="battery">🔋</span>
 
-      <!-- Kabel seri -->
-      <div class="wire" id="wire-seri-top"></div>
-      <div class="wire" id="wire-seri-mid"></div>
-      <div class="wire" id="wire-seri-bottom"></div>
+          <!-- Arus bergerak -->
+          <div class="current" id="seriCurrent">⚡</div>
+        </div>
 
-      <!-- Kabel paralel -->
-      <div class="wire" id="wire-par-top"></div>
-      <div class="wire" id="wire-par-left"></div>
-      <div class="wire" id="wire-par-right"></div>
-      <div class="wire" id="wire-par-bottom"></div>
-
-      <!-- Resistor kiri -->
-      <div class="resistor" style="top: 50px; left: 100px"></div>
-      <div class="node-label" id="labelR1" style="top: 30px; left: 105px">
-        R1=4Ω
+        <div class="output" id="seriOutput"></div>
       </div>
 
-      <!-- Resistor kanan -->
-      <div class="resistor" style="top: 50px; left: 300px"></div>
-      <div class="node-label" id="labelR2" style="top: 30px; left: 310px">
-        R2=6Ω
+      <!-- Teori -->
+      <div class="circuit">
+        <div class="diagram">
+          <h2>Teori Hukum Kirchhoff</h2>
+          <p>
+            <b>1. Hukum Arus Kirchhoff (KCL)</b><br />
+            Jumlah arus yang masuk ke sebuah node = jumlah arus yang keluar.
+            <br /><i>∑ I<sub>masuk</sub> = ∑ I<sub>keluar</sub></i>
+          </p>
+
+          <p>
+            <b>2. Hukum Tegangan Kirchhoff (KVL)</b><br />
+            Jumlah beda potensial pada loop tertutup = 0.
+            <br /><i>∑ V = 0</i>
+          </p>
+
+          <p>
+            <b>Implikasi:</b><br />
+            - Pada rangkaian <b>seri</b>, arus sama di semua komponen.<br />
+            - Pada rangkaian <b>paralel</b>, tegangan sama di semua cabang.
+          </p>
+
+          <p>
+            <b>Pentingnya:</b><br />
+            Digunakan untuk analisis rangkaian listrik kompleks, landasan metode
+            mesh & node voltage, dan perancangan sistem kelistrikan.
+          </p>
+        </div>
       </div>
 
-      <!-- Baterai -->
-      <div class="battery" style="top: 200px; left: 230px"></div>
-      <div class="node-label" id="labelV" style="top: 275px; left: 215px">
-        V=12V
+      <!-- Rangkaian Paralel -->
+      <div class="circuit">
+        <h2>Rangkaian Paralel</h2>
+        <label>R1 (Ω): <input type="number" id="paralelR1" value="4" /></label>
+        <label>R2 (Ω): <input type="number" id="paralelR2" value="6" /></label>
+        <label
+          >V (Volt): <input type="number" id="paralelV" value="12"
+        /></label>
+        <button onclick="hitungParalel()">Hitung</button>
+
+        <div class="diagram">
+          <span class="battery">🔋</span>
+          <span class="wire horizontal"></span>
+
+          <div class="branch">
+            <span class="lamp" id="paralelLamp1">💡</span>
+            <div class="current" id="paralelCurrent1">⚡</div>
+          </div>
+
+          <div class="branch">
+            <span class="lamp" id="paralelLamp2">💡</span>
+            <div class="current" id="paralelCurrent2">⚡</div>
+          </div>
+
+          <span class="wire horizontal"></span>
+          <span class="battery">🔋</span>
+        </div>
+
+        <div class="output" id="paralelOutput"></div>
       </div>
-
-      <!-- Panah arus -->
-      <div class="arrow" id="arrowSeri"></div>
-      <div class="arrow branch" id="arrowR1"></div>
-      <div class="arrow branch" id="arrowR2"></div>
-
-      <!-- Loop tegangan -->
-      <div class="loop"></div>
-    </div>
-
-    <div class="explain" id="info">Menjelaskan KCL...</div>
-
-    <!-- Input -->
-    <div class="form-input">
-      <label
-        >Jenis Rangkaian:
-        <select id="jenis" onchange="ubahAnimasi()">
-          <option value="seri">Seri</option>
-          <option value="paralel">Paralel</option>
-        </select> </label
-      ><br />
-      <label
-        >Tegangan (V): <input type="number" id="inputV" value="12"
-      /></label>
-      <label>R1 (Ω): <input type="number" id="inputR1" value="4" /></label>
-      <label>R2 (Ω): <input type="number" id="inputR2" value="6" /></label>
-      <button onclick="hitung()">Hitung</button>
-    </div>
-
-    <!-- Kalkulasi -->
-    <div class="calc">
-      <h2>Perhitungan</h2>
-      <div id="calc"></div>
     </div>
 
     <script src="script.js"></script>
